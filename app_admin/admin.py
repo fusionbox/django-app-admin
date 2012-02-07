@@ -110,7 +110,7 @@ class AppAdminSite(AdminSite):
 
     def _select_bucket_template(self, app_label):
         templates = [
-            'admin/%s/app_bucket.html' % app_label,
+            'admin/%s/bucket.html' % app_label,
             'admin/%s_bucket.html' % app_label,
             'admin/app_bucket.html',
         ]
