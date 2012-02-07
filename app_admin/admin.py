@@ -87,17 +87,15 @@ class AppAdminSite(AdminSite):
             'app': app_dict,
         })
 
-        app_bucket = get_template(self._select_bucket_template(app_label))
+        bucket_template = self._select_bucket_template(app_label)
+        app_bucket = get_template(bucket_template)
         return app_bucket.render(RequestContext(request, context))
 
     def _select_index_template(self, app_label):
         templates = [
             'admin/%s/index.html' % app_label,
-            'admin/%s/bucket.html' % app_label,
             'admin/%s_index.html' % app_label,
-            'admin/%s_bucket.html' % app_label,
             'admin/app_admin_index.html',
-            'admin/app_admin_bucket.html',
         ]
 
         for template_name in templates:
