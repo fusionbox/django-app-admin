@@ -1,8 +1,10 @@
 {% load i18n %}
 
+{% block content %}
 <div class="module">
 <table summary="{% blocktrans with app.name as name %}Models available in the {{ name }} application.{% endblocktrans %}">
 <caption><a href="{{ app.app_url }}" class="section">{% blocktrans with app.name as name %}{{ name }}{% endblocktrans %}</a></caption>
+{% block model_actions %}
 {% for model in app.models %}
     <tr>
     {% if model.perms.change %}
@@ -24,5 +26,7 @@
     {% endif %}
     </tr>
 {% endfor %}
+{% endblock %}
 </table>
 </div>
+{% endblock %}
