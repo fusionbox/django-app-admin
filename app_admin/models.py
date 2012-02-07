@@ -1,5 +1,5 @@
 from django.contrib import admin
-from appadmin.admin import AppAdminSite
+from app_admin.admin import AppAdminSite
 
 # replace default AdminSite with AppAdminSite
 admin.site = AppAdminSite()

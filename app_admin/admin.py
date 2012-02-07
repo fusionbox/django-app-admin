@@ -45,7 +45,7 @@ class AppAdminSite(AdminSite):
             'apps': app_list,
         })
         return TemplateResponse(request, self.index_template or [
-            'admin/appadmin/index.html',
+            'admin/app_admin/index.html',
         ], context, current_app=self.name)
 
     @never_cache
@@ -96,8 +96,8 @@ class AppAdminSite(AdminSite):
             'admin/%s/bucket.html' % app_label,
             'admin/%s_index.html' % app_label,
             'admin/%s_bucket.html' % app_label,
-            'admin/appadmin_index.html',
-            'admin/appadmin_bucket.html',
+            'admin/app_admin_index.html',
+            'admin/app_admin_bucket.html',
         ]
 
         for template_name in templates:
@@ -106,7 +106,7 @@ class AppAdminSite(AdminSite):
                 return template_name
             except TemplateDoesNotExist:
                 continue
-        return 'admin/appadmin/app_index.html'
+        return 'admin/app_admin/app_index.html'
 
     def _select_bucket_template(self, app_label):
         templates = [
@@ -121,7 +121,7 @@ class AppAdminSite(AdminSite):
                 return template_name
             except TemplateDoesNotExist:
                 continue
-        return 'admin/appadmin/app_bucket.html'
+        return 'admin/app_admin/app_bucket.html'
 
     def _get_app_dict(self, request, app_label, extra_context):
         user = request.user
