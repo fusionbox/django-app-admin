@@ -61,16 +61,18 @@ class AppAdminSite(AdminSite):
         app_dict = self._get_app_dict(request, app_label, extra_context)
         if not app_dict:
             raise http.Http404('The requested admin page does not exist.')
-
-        # add content from ModelAdmin and/or AppAdmin
-        if app_label in self._registered_apps:
-            app_dict.update(self._registered_apps[app_label].index(request, app_dict))
-
         bucket_template = self._select_bucket_template(app_label)
         context.update({
             'app': app_dict,
             'bucket_template': bucket_template,
         })
+
+        # add content from ModelAdmin and/or AppAdmin
+        if app_label in self._registered_apps:
+            additional_context = self._registered_apps[app_label].index(request, app_dict)
+            print additional_context
+            if additional_context:
+                context.update(additional_context)
 
         return TemplateResponse(request, self.app_index_template or self._select_index_template(app_label), context, current_app=self.name)
 
@@ -79,13 +81,16 @@ class AppAdminSite(AdminSite):
         if not app_dict:
             raise http.Http404('The requested admin page does not exist.')
 
-        # add content from ModelAdmin and/or AppAdmin
-        if app_label in self._registered_apps:
-            app_dict.update(self._registered_apps[app_label].bucket(request, app_dict))
-
         context.update({
             'app': app_dict,
         })
+
+        # add content from ModelAdmin and/or AppAdmin
+        if app_label in self._registered_apps:
+            additional_context = self._registered_apps[app_label].bucket(request, app_dict)
+            print additional_context
+            if additional_context:
+                context.update(additional_context)
 
         bucket_template = self._select_bucket_template(app_label)
         app_bucket = get_template(bucket_template)
