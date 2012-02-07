@@ -1,0 +1,14 @@
+{% extends "admin/index.html" %}
+{% load i18n admin_static %}
+
+{% block content %}
+<div id="content-main">
+{% if apps %}
+    {% for app in apps %}
+      {{ app|safe }}
+    {% endfor %}
+{% else %}
+    <p>{% trans "You don't have permission to edit anything." %}</p>
+{% endif %}
+</div>
+{% endblock %}
