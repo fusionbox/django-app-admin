@@ -70,7 +70,6 @@ class AppAdminSite(AdminSite):
         # add content from ModelAdmin and/or AppAdmin
         if app_label in self._registered_apps:
             additional_context = self._registered_apps[app_label].index(request, app_dict)
-            print additional_context
             if additional_context:
                 context.update(additional_context)
 
@@ -88,7 +87,6 @@ class AppAdminSite(AdminSite):
         # add content from ModelAdmin and/or AppAdmin
         if app_label in self._registered_apps:
             additional_context = self._registered_apps[app_label].bucket(request, app_dict)
-            print additional_context
             if additional_context:
                 context.update(additional_context)
 
