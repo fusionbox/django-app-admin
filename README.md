@@ -19,3 +19,14 @@ Installation
 Usage
 -----
 Add `app_admin` to your `INSTALLED_APPS`.
+
+In `urls.py`, add the following:
+
+``` python
+from django.contrib import admin
+from app_admin.admin import AppAdminSite
+
+# replace default AdminSite with AppAdminSite
+admin.site = AppAdminSite()
+admin_site = admin.site
+```
