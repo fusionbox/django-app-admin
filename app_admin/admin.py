@@ -33,7 +33,9 @@ class AppAdminSite(AdminSite):
         for model, model_admin in self._registry.items():
             app_label = model._meta.app_label
 
-            apps[app_label] = self.bucket_for_app(request, app_label, extra_context)
+            app_bucket = self.bucket_for_app(request, app_label, extra_context)
+            if app_bucket is not None:
+                apps[app_label] = app_bucket
 
         app_list = apps.items()  # tuple of key, value
         app_list.sort(key=lambda x: x[0])  # sorted by key
@@ -78,7 +80,7 @@ class AppAdminSite(AdminSite):
     def bucket_for_app(self, request, app_label, context):
         app_dict = self._get_app_dict(request, app_label, context)
         if not app_dict:
-            raise http.Http404('The requested admin page does not exist.')
+            return None
 
         context.update({
             'app': app_dict,
@@ -157,7 +159,8 @@ class AppAdminSite(AdminSite):
                             }
 
         # Sort the models alphabetically within each app.
-        app_dict['models'].sort(key=lambda model: model['name'])
+        if 'models' in app_dict:
+            app_dict['models'].sort(key=lambda model: model['name'])
 
         return app_dict
 
