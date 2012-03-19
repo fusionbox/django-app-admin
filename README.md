@@ -10,14 +10,19 @@ have to provide implement *two* views, not one (one for the admin home —
 In most cases one view will do the job, and AppAdmin will use `index` if
 `app_index` is not provided.
 
+AppAdmin also provides classes and templates that make building admin-like
+pages easy.  For instance, the `AsAdminForm` class provides an `as_admin`
+method that outputs the classes and wrappers you'll need to make a form that
+looks like other django admin forms.
 
 Installation
 ------------
 
     pip install -e git://github.com/fusionbox/django-app-admin.git#egg=django-app-admin
 
-Usage
------
+ AppAdminSite Usage
+--------------------
+
 Add `app_admin` to your `INSTALLED_APPS`.
 
 In `urls.py`, add the following:
@@ -30,3 +35,17 @@ from app_admin.admin import AppAdminSite
 admin.site = AppAdminSite()
 admin_site = admin.site
 ```
+
+ Other classes
+---------------
+
++ `AsAdminForm` - Extend to have an as_admin method on your forms.
+
+ Templates
+-----------
+
++ `admin/app_admin/submit.html` - outputs (*just*) a "Save" button.
++ `admin/app_admin/app_bucket.html` - for use on the home page.
++ `admin/app_admin/app_index.html` - the /admin/app-name/ page.
++ `admin/app_admin/index.html` - Outputs the entire home page.
+  It is probably better to override app_bucket.html, not this one.
