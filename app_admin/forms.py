@@ -67,7 +67,7 @@ class AsAdminForm(forms.BaseForm):
 '''[1:-1].format(
             fieldset__errors=self.errors and '<p class="errornote">Please correct the error(s) below.</p>\n' or '',
             fieldset__classes=self.fieldset['classes'],
-            fieldset__name=self.fieldset['title'] and '<h2>{0}</h2>\n'.format(self.fieldset['title']) or '',
+            fieldset__title=self.fieldset['title'] and '<h2>{0}</h2>\n'.format(self.fieldset['title']) or '',
             fieldset__description=self.fieldset['description'] and '<div class="description">{0}</div>\n'.format(self.fieldset['description']) or '',
         ))
 
